@@ -16,9 +16,14 @@ def kentän_tiedot(icao):
     kursori = yhteys.cursor(dictionary=True)
     kursori.execute(sql)
     airport_data = kursori.fetchall()
-    tiedot = airport_data[0]  # Tässä vaiheessa järjestys on vielä: ICAO - name - municipality,
-                                # mutta netissä näytettävä tieto on järjestyksessä:
-                                # ICAO - municipality - name (aakkosjärjestyksessä?). Miksi? Voiko sen muuttaa?
+    tiedot = {
+        'ICAO': airport_data[0]['ident'],
+        'Name': airport_data[0]['name'],
+        'Municipality': airport_data[0]['municipality']
+    }
+    # ^Yllä oleva järjestys muuttuu, kun se näytetään netissä
+    # (Menee avainten perusteella aakkosjärjestykseen?) Miksi? Voiko sille tehdä jotain?
+
     return tiedot
 
 
